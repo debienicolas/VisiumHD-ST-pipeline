@@ -1,0 +1,108 @@
+
+# Dont' use directory names with spaces
+# Replace with '_' or '-'
+input_folder: "input/Visium_HD_Human_Breast_Cancer_Fresh_Frozen"
+
+output_folder: "results/Human_DCIS"
+
+bin2cell: True
+manual_annotation: False
+species: "human" # human or mouse as options
+input_visium_resolution: square_002um
+
+sequential: True
+
+ficture:
+  # the number of factors to use
+  n_factors: "9"
+  # the width of the hexagon to use during training
+  train_width: "12"
+  # the anchor resolution to use for decoding
+  anchor_res: "4"
+  # min-ct-unit-dge: Minimum count per hexagon in DGE generation, default is 20
+  min_ct_unit_dge: 5
+  # min-ct-unit-feature: minimum count per feature during LDA Training, default is 20
+  min_ct_unit_feature: 5
+  # min-ct-unit-fit: Minimum count per hexagon unit during model fitting, default is 20
+  min_ct_unit_fit: 5
+
+
+reference_atlas:
+  adata_path: "resources_data/BrCa_Atlas_Count_out/annotated_brca_atlas.h5ad"
+  cell_type_column: "celltype_major"
+
+ficture_prior: # config specific to ficture prior
+  fit_width: "12"
+  cmap_path: "resources_data/BrCa_Atlas_Count_out/cmap.rgb.tsv"
+
+celltypist:
+  model_path: "resources_data/celltypist/model_celltype_major.pkl"
+
+initial_analysis:
+  # MAD_folds: number of Median Absolute Deviation (MAD) to use for filtering low quality genes (if MAD_folds is 5, then 5 * MAD is used as the threshold)
+  MAD_folds: 5 
+  # pct_mt_threshold: percentage of mitochondrial counts greater than this threshold will be filtered out
+  pct_mt_threshold: 8
+  # min_cells: minimum number of cells a gene must be expressed in to be kept
+  min_cells: 3
+  # min_counts: minimum number of counts a cell must have to be kept
+  min_counts: 1
+
+bin2cell: # info for bin2cell (https://nbviewer.org/github/Teichlab/bin2cell/blob/main/notebooks/demo.ipynb)
+  # mpp: microns per pixel -> how many micrometes are captured in each pixel of the input , stardist model trained on 0.3 
+  mpp: 0.5 
+  # buffer: crops image to area of interest + buffer in pixels
+  buffer: 150
+  # prob_thresh: H&E segmentation prob. threshold, lower value -> more lenient with regard to what is considered a nuclei
+  prob_thresh: 0.02
+  # max_bin_distance: Finds bins up to this distance from nuclei to join together (um)
+  max_bin_distance: 2
+  # prob_thresh_gex: Similar to prob_thresh but for GEX segmentation
+  prob_thresh_gex: 0.05
+  # nms_thresh_gex: non-maximum suppression threshold for GEX segmentation, higher value -> requires more overlap of segmenations for them to be merged (could help in dense regions)
+  nms_thresh_gex: 0.5
+
+
+infercnv:
+  # window_size: the size of the window to use for infercnv
+  window_size: 100
+  # step: the step size to use for infercnv
+  step: 3
+  # leiden_res: the resolution to use for the leiden clustering
+  leiden_res: 0.3
+  # infercnv_clip: the clip value to use for infercnv
+  infercnv_clip: 0.25
+
+
+cellchat:
+  # spot_size: the size of the spot to use for cellchat
+  spot_size: 65
+  # type: method for computing average gene expression (default: "triMean")
+  type: "truncatedMean"
+  # trim: fraction of observations to be trimmed from each end of x before the mean is computed (0 - 0.25)
+  trim: 0.1
+  # interaction_range: the interaction range for the cellchat analysis in microns
+  interaction_range: 250
+  # nboot: threshold of p-values
+  nboot: 20
+  # filter_communication_cells: minimum number of cells required in each cell group for cell-cell communication
+  filter_communication_cells: 20
+
+
+monocle:
+  # pt_size_factor: the point size factor for the spatial monocle plot
+  pt_size_factor: 0.5
+  # run_clone: whether to run monocle on the clone clusters
+  run_clone: "TRUE"
+  # run_factor: whether to run monocle on the ficture factor clusters
+  run_factor: "TRUE"
+  
+
+pyscenic:
+  # run_pyscenic: whether to run pyscenic
+  run_pyscenic: "TRUE"
+
+
+spatial_analysis:
+  # run_spatial_analysis: whether to run spatial analysis
+  run_spatial_analysis: "TRUE"
