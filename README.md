@@ -9,6 +9,7 @@ This is a snakemake pipeline for performing a spatial ananlysis of VisiumHD spat
 
 -- Pyensemble database
 -- Pyscenic
+-- spatula for ficture
 
 creating a conda environment
 
