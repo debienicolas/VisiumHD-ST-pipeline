@@ -1,12 +1,13 @@
 # VisiumHD-ST-pipeline
 
 This spatial transcriptomics (ST) pipeline is an end-to-end Visium HD analysis pipeline implemented using Snakemake. 
-It goes from raw data (fresh off from spaceranger) to running some of the most popular downstream analysis packages. 
+It goes from raw data (fresh from spaceranger) to running some of the most popular downstream analysis packages. 
 
 The ST data is stored in an [annotated data object](https://anndata.readthedocs.io/en/stable/) to ensure compatibility with popular single cell/ST analysis packages in python.
 
 <div align="center">
     <img src="meta/overview_figure.png" alt="st-pipeline-overview" width="700"/>
+    <p><em>Figure 1: Overview of the Visium HD spatial transcriptomics pipeline workflow</em></p>
 </div>
 
 The pipeline has four main sections:  
@@ -37,19 +38,12 @@ It is highly recommended to create a new conda environment:
 conda create --name st python=3.10.13
 conda activate st
 pip install -r requirements.txt
-``` 
+```
+It is highly recommended to run this pipeline on a HPC (seee the hpc_scripts).  
+
+TO DO: Further installation details
 
 
-
-### Installation
-
-- Pyensemble database  
-- Pyscenic  
-- spatula for ficture
-
-creating a conda environment
-
-### 
 
 
 ## Repository structure
